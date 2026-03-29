@@ -1,0 +1,373 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Plan — March 30</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; background: #fff; color: #1a1a1a; padding: 2rem; }
+
+header { border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+header .eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; color: #9ca3af; text-transform: uppercase; margin-bottom: 0.3rem; }
+header h1 { font-size: 1.8rem; font-weight: normal; color: #111827; letter-spacing: -0.02em; }
+header .anchor { font-size: 0.75rem; color: #9ca3af; font-style: italic; margin-top: 0.4rem; }
+
+.legend { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.68rem; color: #6b7280; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.legend-tip { font-size: 0.65rem; color: #9ca3af; font-style: italic; }
+
+.grid { display: flex; gap: 0; overflow-x: auto; }
+.time-col { width: 3.5rem; flex-shrink: 0; padding-top: 2rem; }
+.time-label { height: 60px; display: flex; align-items: flex-start; font-size: 0.58rem; color: #9ca3af; }
+
+.day-col { flex: 1; min-width: 140px; padding: 0 3px; }
+.day-header { height: 2rem; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: #374151; font-weight: bold; }
+.day-body { position: relative; height: 660px; background: #f9fafb; border-radius: 4px; border: 1px solid #e5e7eb; }
+.hour-line { position: absolute; left: 0; right: 0; border-top: 1px solid #e5e7eb; }
+
+.block { position: absolute; left: 3px; right: 3px; border-radius: 0 3px 3px 0; padding: 4px 6px; overflow: hidden; cursor: default; }
+.block-label { font-size: 0.62rem; font-weight: bold; line-height: 1.3; margin-bottom: 1px; }
+.block-time { font-size: 0.54rem; }
+.block-why { font-size: 0.57rem; font-style: italic; line-height: 1.5; margin-top: 4px; padding-top: 4px; color: #1f2937; }
+.block-note { font-size: 0.55rem; line-height: 1.4; margin-top: 3px; color: #6b7280; }
+
+.meeting  { background: #f1f5f9; border-left: 3px solid #94a3b8; }
+.meeting .block-label { color: #334155; }
+.meeting .block-time  { color: #94a3b8; }
+.meeting .block-why   { border-top: 1px solid #94a3b8; }
+
+.deep     { background: #fffbeb; border-left: 3px solid #f59e0b; }
+.deep .block-label { color: #78350f; }
+.deep .block-time  { color: #b45309; }
+.deep .block-why   { border-top: 1px solid #f59e0b; }
+
+.priority { background: #fff1f2; border-left: 3px solid #f43f5e; }
+.priority .block-label { color: #881337; }
+.priority .block-time  { color: #be123c; }
+.priority .block-why   { border-top: 1px solid #f43f5e; }
+
+.restore  { background: #f0fdf4; border-left: 3px solid #22c55e; }
+.restore .block-label { color: #14532d; }
+.restore .block-time  { color: #16a34a; }
+.restore .block-why   { border-top: 1px solid #22c55e; }
+
+.deadlines { margin-top: 1.5rem; padding: 1rem 1.25rem; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 4px; }
+.deadlines h2 { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: #9ca3af; margin-bottom: 0.75rem; font-weight: normal; }
+.deadline-list { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.deadline-date { font-size: 0.65rem; font-weight: bold; margin-bottom: 2px; }
+.deadline-label { font-size: 0.68rem; color: #374151; }
+
+footer { font-size: 0.58rem; color: #d1d5db; margin-top: 1rem; text-align: center; }
+
+@media print {
+body { padding: 1rem; }
+.grid { overflow: visible; }
+.day-col { min-width: 0; }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Week of March 30 · Executive Coaching · Session 4</div>
+  <h1>Weekly Plan</h1>
+  <div class="anchor">"Doing the hard thing in this moment is how I become who I'm here to become."</div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#64748b"></div> Meeting</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Deep Work</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f43f5e"></div> Priority Work</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Restoration</div>
+</div>
+
+<div class="grid">
+  <div class="time-col">
+    <div class="time-label">7AM</div>
+    <div class="time-label">8AM</div>
+    <div class="time-label">9AM</div>
+    <div class="time-label">10AM</div>
+    <div class="time-label">11AM</div>
+    <div class="time-label">12PM</div>
+    <div class="time-label">1PM</div>
+    <div class="time-label">2PM</div>
+    <div class="time-label">3PM</div>
+    <div class="time-label">4PM</div>
+    <div class="time-label">5PM</div>
+  </div>
+
+  <!-- MONDAY -->
+
+  <div class="day-col">
+    <div class="day-header">Monday</div>
+    <div class="day-body">
+      <div class="hour-line" style="top:0px"></div>
+      <div class="hour-line" style="top:60px"></div>
+      <div class="hour-line" style="top:120px"></div>
+      <div class="hour-line" style="top:180px"></div>
+      <div class="hour-line" style="top:240px"></div>
+      <div class="hour-line" style="top:300px"></div>
+      <div class="hour-line" style="top:360px"></div>
+      <div class="hour-line" style="top:420px"></div>
+      <div class="hour-line" style="top:480px"></div>
+      <div class="hour-line" style="top:540px"></div>
+      <div class="hour-line" style="top:600px"></div>
+
+```
+  <!-- 9-10 Phyllis -->
+  <div class="block priority" style="top:120px; height:60px;">
+    <div class="block-label">Phyllis — Relationship Mapping</div>
+    <div class="block-time">9AM–10AM</div>
+    <div class="block-why">You're walking into April 6 without a strategy. This hour is how you take back the room before you're in it.</div>
+  </div>
+  <!-- 10-11 Cara -->
+  <div class="block deep" style="top:180px; height:60px;">
+    <div class="block-label">Cara Work Review</div>
+    <div class="block-time">10AM–11AM</div>
+    <div class="block-why">Cara's data is the foundation of May 14. You can't lead Tuesday's conversation without doing this first.</div>
+    <div class="block-note">⚠️ This has been avoided. Do it.</div>
+  </div>
+  <!-- 11-12:30 CoC -->
+  <div class="block meeting" style="top:240px; height:90px;">
+    <div class="block-label">Council on Competitiveness</div>
+    <div class="block-time">11AM–12:30PM</div>
+    <div class="block-why">You made a proactive move here last week. This continues that momentum.</div>
+  </div>
+  <!-- 1-2 Advocacy -->
+  <div class="block meeting" style="top:360px; height:60px;">
+    <div class="block-label">Advocacy Meeting</div>
+    <div class="block-time">1PM–2PM</div>
+    <div class="block-why">Core function work. Define done before you walk in.</div>
+  </div>
+  <!-- 2:30-4:30 Riding -->
+  <div class="block restore" style="top:450px; height:120px;">
+    <div class="block-label">Riding</div>
+    <div class="block-time">2:30PM–4:30PM</div>
+    <div class="block-why">Your nervous system is doing serious work this week. Riding isn't a reward — it's what makes the rest possible.</div>
+    <div class="block-note">Protected. Non-negotiable.</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- TUESDAY -->
+
+  <div class="day-col">
+    <div class="day-header">Tuesday</div>
+    <div class="day-body">
+      <div class="hour-line" style="top:0px"></div>
+      <div class="hour-line" style="top:60px"></div>
+      <div class="hour-line" style="top:120px"></div>
+      <div class="hour-line" style="top:180px"></div>
+      <div class="hour-line" style="top:240px"></div>
+      <div class="hour-line" style="top:300px"></div>
+      <div class="hour-line" style="top:360px"></div>
+      <div class="hour-line" style="top:420px"></div>
+      <div class="hour-line" style="top:480px"></div>
+      <div class="hour-line" style="top:540px"></div>
+      <div class="hour-line" style="top:600px"></div>
+
+```
+  <!-- 7-8 Cardio -->
+  <div class="block restore" style="top:0px; height:60px;">
+    <div class="block-label">Cardio</div>
+    <div class="block-time">7AM–8AM</div>
+    <div class="block-why">Movement first means you arrive regulated, not reactive.</div>
+  </div>
+  <!-- 8-9 Anna -->
+  <div class="block meeting" style="top:60px; height:60px;">
+    <div class="block-label">Anna</div>
+    <div class="block-time">8AM–9AM</div>
+    <div class="block-why">Individual touchpoints are your team strategy. Listen more than you direct.</div>
+  </div>
+  <!-- 10-11 Advocacy -->
+  <div class="block meeting" style="top:180px; height:60px;">
+    <div class="block-label">Advocacy Call</div>
+    <div class="block-time">10AM–11AM</div>
+    <div class="block-why">Function credibility is built one contribution at a time. Show up prepared.</div>
+  </div>
+  <!-- 11-12 Cara -->
+  <div class="block deep" style="top:240px; height:60px;">
+    <div class="block-label">Cara Meeting</div>
+    <div class="block-time">11AM–12PM (TBD)</div>
+    <div class="block-why">You reviewed her work Monday. Now you lead the conversation, not react to it.</div>
+    <div class="block-note">Send Cara a note Monday morning — first thing.</div>
+  </div>
+  <!-- 1-2 Hayden -->
+  <div class="block meeting" style="top:360px; height:60px;">
+    <div class="block-label">Hayden</div>
+    <div class="block-time">1PM–2PM</div>
+    <div class="block-why">Delegation is how you scale. The list is built — hand it off cleanly and specifically.</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- WEDNESDAY -->
+
+  <div class="day-col">
+    <div class="day-header">Wednesday</div>
+    <div class="day-body">
+      <div class="hour-line" style="top:0px"></div>
+      <div class="hour-line" style="top:60px"></div>
+      <div class="hour-line" style="top:120px"></div>
+      <div class="hour-line" style="top:180px"></div>
+      <div class="hour-line" style="top:240px"></div>
+      <div class="hour-line" style="top:300px"></div>
+      <div class="hour-line" style="top:360px"></div>
+      <div class="hour-line" style="top:420px"></div>
+      <div class="hour-line" style="top:480px"></div>
+      <div class="hour-line" style="top:540px"></div>
+      <div class="hour-line" style="top:600px"></div>
+
+```
+  <!-- 8-10 Riding -->
+  <div class="block restore" style="top:60px; height:120px;">
+    <div class="block-label">Riding</div>
+    <div class="block-time">8AM–10AM</div>
+    <div class="block-why">You go straight from barn to Phyllis prep. Regulated = clearer. This is sequenced on purpose.</div>
+    <div class="block-note">Protected. Non-negotiable.</div>
+  </div>
+  <!-- 10-12 Phyllis prep -->
+  <div class="block priority" style="top:180px; height:120px;">
+    <div class="block-label">Phyllis April 6 — Meeting Prep</div>
+    <div class="block-time">10AM–12PM</div>
+    <div class="block-why">You mapped the relationship Monday. Now prep the meeting — what you want, what she wants, where the friction is.</div>
+    <div class="block-note">Don't walk into April 6 improvising. You're better when prepared.</div>
+  </div>
+  <!-- 12:30-2 Intake -->
+  <div class="block meeting" style="top:330px; height:90px;">
+    <div class="block-label">Intake Meeting (90 min)</div>
+    <div class="block-time">12:30PM–2PM</div>
+    <div class="block-why">Every intake is a credibility moment for the function. Define done before you start.</div>
+  </div>
+  <!-- 3:30-5 DI Leads -->
+  <div class="block meeting" style="top:510px; height:90px;">
+    <div class="block-label">DI Leads</div>
+    <div class="block-time">3:30PM–5PM</div>
+    <div class="block-why">Long-game credibility work with internal stakeholders. Show up curious, not defensive.</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- THURSDAY -->
+
+  <div class="day-col">
+    <div class="day-header">Thursday</div>
+    <div class="day-body">
+      <div class="hour-line" style="top:0px"></div>
+      <div class="hour-line" style="top:60px"></div>
+      <div class="hour-line" style="top:120px"></div>
+      <div class="hour-line" style="top:180px"></div>
+      <div class="hour-line" style="top:240px"></div>
+      <div class="hour-line" style="top:300px"></div>
+      <div class="hour-line" style="top:360px"></div>
+      <div class="hour-line" style="top:420px"></div>
+      <div class="hour-line" style="top:480px"></div>
+      <div class="hour-line" style="top:540px"></div>
+      <div class="hour-line" style="top:600px"></div>
+
+```
+  <!-- 7-8 Cardio -->
+  <div class="block restore" style="top:0px; height:60px;">
+    <div class="block-label">Cardio</div>
+    <div class="block-time">7AM–8AM</div>
+    <div class="block-why">Thursday has depth ahead. Start regulated.</div>
+  </div>
+  <!-- 10-10:45 DEB -->
+  <div class="block meeting" style="top:180px; height:45px;">
+    <div class="block-label">DEB Markham / MARCOMM</div>
+    <div class="block-time">10AM–10:45AM</div>
+    <div class="block-why">Be crisp. Leave them knowing what to expect from you.</div>
+  </div>
+  <!-- 10:45-12 Trade Assoc -->
+  <div class="block deep" style="top:225px; height:75px;">
+    <div class="block-label">Trade Association — Action Items</div>
+    <div class="block-time">10:45AM–12PM</div>
+    <div class="block-why">This block moved twice. It's here because the work matters and avoidance is costing you, not protecting you.</div>
+    <div class="block-note">5 items. Define done. Work the list.</div>
+  </div>
+  <!-- 12-1 US Public Affairs -->
+  <div class="block meeting" style="top:300px; height:60px;">
+    <div class="block-label">US Public Affairs</div>
+    <div class="block-time">12PM–1PM</div>
+    <div class="block-why">Show up as a peer. Come with a point of view — don't just report, contribute.</div>
+  </div>
+  <!-- 1-3:30 Q1 Report -->
+  <div class="block priority" style="top:360px; height:150px;">
+    <div class="block-label">Q1 Report — Leadership</div>
+    <div class="block-time">1PM–3:30PM</div>
+    <div class="block-why">Nobody asked for this. That's exactly why it matters. The previous VP didn't build credibility — you are. A proactive Q1 report tells leadership this function is run differently now.</div>
+    <div class="block-note">Structured, not exhaustive. What did the function do? What's coming? What do you need? Two pages max.</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- FRIDAY -->
+
+  <div class="day-col">
+    <div class="day-header">Friday</div>
+    <div class="day-body">
+      <div class="hour-line" style="top:0px"></div>
+      <div class="hour-line" style="top:60px"></div>
+      <div class="hour-line" style="top:120px"></div>
+      <div class="hour-line" style="top:180px"></div>
+      <div class="hour-line" style="top:240px"></div>
+      <div class="hour-line" style="top:300px"></div>
+      <div class="hour-line" style="top:360px"></div>
+      <div class="hour-line" style="top:420px"></div>
+      <div class="hour-line" style="top:480px"></div>
+      <div class="hour-line" style="top:540px"></div>
+      <div class="hour-line" style="top:600px"></div>
+
+```
+  <!-- 9-11 Carry-forward -->
+  <div class="block deep" style="top:120px; height:120px;">
+    <div class="block-label">Carry-Forward / May 14 Milestones</div>
+    <div class="block-time">9AM–11AM</div>
+    <div class="block-why">May 14 is 7 weeks away with external dependencies. A backwards plan isn't optional — it's the only way this doesn't sneak up on you.</div>
+    <div class="block-note">Close open loops, then build the milestone map. Don't let this stay invisible.</div>
+  </div>
+  <!-- 2-5:30 Saddle fitting -->
+  <div class="block restore" style="top:420px; height:210px;">
+    <div class="block-label">Saddle Fitting</div>
+    <div class="block-time">2PM–5:30PM</div>
+    <div class="block-why">You earned this. Your horse needs you present — which means the week's work needs to be done, not carried.</div>
+    <div class="block-note">Protected. This is how the week ends.</div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<div class="deadlines">
+  <h2>Hard Deadlines</h2>
+  <div class="deadline-list">
+    <div>
+      <div class="deadline-date" style="color:#e11d48">April 6, 1PM</div>
+      <div class="deadline-label">Phyllis Portfolio Alignment</div>
+    </div>
+    <div>
+      <div class="deadline-date" style="color:#d97706">April 14</div>
+      <div class="deadline-label">FAO / Bio Solutions Call</div>
+    </div>
+    <div>
+      <div class="deadline-date" style="color:#e11d48">May 14</div>
+      <div class="deadline-label">Power BI — Leadership Presentation</div>
+    </div>
+  </div>
+</div>
+
+<footer>Session 4 · March 29, 2026 · Executive Coaching</footer>
+
+</body>
+</html>
