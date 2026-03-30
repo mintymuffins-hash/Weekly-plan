@@ -1,0 +1,176 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Executive Coaching//Weekly Plan//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Weekly Plan — March 30
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+UID:1@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260330T090000
+DTEND;TZID=America/New_York:20260330T100000
+SUMMARY:[Priority Work] Phyllis — Relationship Mapping
+DESCRIPTION:Priority Work\n\nWalking into April 6 without a strategy. This hour is how you take back the room before you're in it.
+END:VEVENT
+BEGIN:VEVENT
+UID:2@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260330T100000
+DTEND;TZID=America/New_York:20260330T110000
+SUMMARY:[Deep Work] Cara Work Review
+DESCRIPTION:Deep Work\n\nFoundation of May 14. Lead Tuesday's conversation — don't react to it.
+END:VEVENT
+BEGIN:VEVENT
+UID:3@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260330T110000
+DTEND;TZID=America/New_York:20260330T123000
+SUMMARY:[Meeting] Council on Competitiveness
+DESCRIPTION:Meeting\n\nProactive move last week. Continue that momentum.
+END:VEVENT
+BEGIN:VEVENT
+UID:4@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260330T130000
+DTEND;TZID=America/New_York:20260330T140000
+SUMMARY:[Meeting] Advocacy Meeting
+DESCRIPTION:Meeting\n\nCore function work. Define done before you walk in.
+END:VEVENT
+BEGIN:VEVENT
+UID:5@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260330T143000
+DTEND;TZID=America/New_York:20260330T163000
+SUMMARY:[Restoration] Riding
+DESCRIPTION:Restoration\n\nNot a reward — it's what makes the rest possible. Protected.
+END:VEVENT
+BEGIN:VEVENT
+UID:6@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260331T070000
+DTEND;TZID=America/New_York:20260331T080000
+SUMMARY:[Restoration] Cardio
+DESCRIPTION:Restoration\n\nMovement first = arrive regulated\, not reactive.
+END:VEVENT
+BEGIN:VEVENT
+UID:7@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260331T080000
+DTEND;TZID=America/New_York:20260331T090000
+SUMMARY:[Meeting] Anna
+DESCRIPTION:Meeting\n\nIndividual touchpoints are your team strategy.
+END:VEVENT
+BEGIN:VEVENT
+UID:8@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260331T100000
+DTEND;TZID=America/New_York:20260331T110000
+SUMMARY:[Meeting] Advocacy Call
+DESCRIPTION:Meeting\n\nCredibility built one contribution at a time.
+END:VEVENT
+BEGIN:VEVENT
+UID:9@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260331T110000
+DTEND;TZID=America/New_York:20260331T120000
+SUMMARY:[Deep Work] Cara Meeting
+DESCRIPTION:Deep Work\n\nYou reviewed Monday. Now lead the conversation.
+END:VEVENT
+BEGIN:VEVENT
+UID:10@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260331T130000
+DTEND;TZID=America/New_York:20260331T140000
+SUMMARY:[Meeting] Hayden
+DESCRIPTION:Meeting\n\nDelegation is how you scale.
+END:VEVENT
+BEGIN:VEVENT
+UID:11@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260401T080000
+DTEND;TZID=America/New_York:20260401T100000
+SUMMARY:[Restoration] Riding
+DESCRIPTION:Restoration\n\nBarn to Phyllis prep. Regulated = clearer. Sequenced on purpose.
+END:VEVENT
+BEGIN:VEVENT
+UID:12@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260401T100000
+DTEND;TZID=America/New_York:20260401T120000
+SUMMARY:[Priority Work] Phyllis April 6 — Meeting Prep
+DESCRIPTION:Priority Work\n\nRelationship mapped Monday. Now prep the meeting.
+END:VEVENT
+BEGIN:VEVENT
+UID:13@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260401T123000
+DTEND;TZID=America/New_York:20260401T140000
+SUMMARY:[Meeting] Intake Meeting (90 min)
+DESCRIPTION:Meeting\n\nEvery intake is a credibility moment.
+END:VEVENT
+BEGIN:VEVENT
+UID:14@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260401T153000
+DTEND;TZID=America/New_York:20260401T170000
+SUMMARY:[Meeting] DI Leads
+DESCRIPTION:Meeting\n\nLong-game credibility. Show up curious\, not defensive.
+END:VEVENT
+BEGIN:VEVENT
+UID:15@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260402T070000
+DTEND;TZID=America/New_York:20260402T080000
+SUMMARY:[Restoration] Cardio
+DESCRIPTION:Restoration\n\nThursday has depth ahead. Start regulated.
+END:VEVENT
+BEGIN:VEVENT
+UID:16@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260402T100000
+DTEND;TZID=America/New_York:20260402T104500
+SUMMARY:[Meeting] DEB Markham / MARCOMM
+DESCRIPTION:Meeting\n\nBe crisp. Leave them knowing what to expect.
+END:VEVENT
+BEGIN:VEVENT
+UID:17@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260402T104500
+DTEND;TZID=America/New_York:20260402T120000
+SUMMARY:[Deep Work] Trade Association — Action Items
+DESCRIPTION:Deep Work\n\nMoved twice. Avoidance is costing you\, not protecting you.
+END:VEVENT
+BEGIN:VEVENT
+UID:18@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260402T120000
+DTEND;TZID=America/New_York:20260402T130000
+SUMMARY:[Meeting] US Public Affairs
+DESCRIPTION:Meeting\n\nShow up as a peer. Come with a point of view.
+END:VEVENT
+BEGIN:VEVENT
+UID:19@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260402T130000
+DTEND;TZID=America/New_York:20260402T153000
+SUMMARY:[Priority Work] Q1 Report — Leadership
+DESCRIPTION:Priority Work\n\nNobody asked. That's why it matters.
+END:VEVENT
+BEGIN:VEVENT
+UID:20@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260403T090000
+DTEND;TZID=America/New_York:20260403T110000
+SUMMARY:[Deep Work] Carry-Forward / May 14 Milestones
+DESCRIPTION:Deep Work\n\n7 weeks away. Build the backwards plan now.
+END:VEVENT
+BEGIN:VEVENT
+UID:21@weeklyplan.coaching
+DTSTAMP:20260330T214022Z
+DTSTART;TZID=America/New_York:20260403T140000
+DTEND;TZID=America/New_York:20260403T173000
+SUMMARY:[Restoration] Saddle Fitting
+DESCRIPTION:Restoration\n\nYou earned this. Protected.
+END:VEVENT
+END:VCALENDAR
