@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule Updater</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf8;
+    --surface: #ffffff;
+    --border: #e8e6e0;
+    --text: #1a1814;
+    --text-mid: #4a4640;
+    --text-light: #9a9590;
+    --accent: #d45050;
+    --accent-bg: #fff1f0;
+    --green: #4caf7a;
+    --green-bg: #f0faf4;
+    --amber: #d4a843;
+    --amber-bg: #fffbeb;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–bg);
+color: var(–text);
+min-height: 100vh;
+padding: 2rem 1rem;
+}
+
+.container {
+max-width: 680px;
+margin: 0 auto;
+}
+
+header {
+border-bottom: 2px solid var(–border);
+padding-bottom: 1.25rem;
+margin-bottom: 2rem;
+}
+
+header h1 {
+font-family: ‘DM Serif Display’, serif;
+font-size: 1.8rem;
+color: var(–text);
+letter-spacing: -0.02em;
+}
+
+header p {
+font-size: 0.72rem;
+color: var(–text-light);
+margin-top: 0.3rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+}
+
+.section {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 1.5rem;
+margin-bottom: 1.25rem;
+}
+
+.section-title {
+font-size: 0.65rem;
+font-weight: 600;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–text-light);
+margin-bottom: 1rem;
+}
+
+label {
+display: block;
+font-size: 0.75rem;
+font-weight: 500;
+color: var(–text-mid);
+margin-bottom: 0.4rem;
+margin-top: 1rem;
+}
+
+label:first-of-type { margin-top: 0; }
+
+input, textarea {
+width: 100%;
+padding: 0.7rem 0.9rem;
+border: 1px solid var(–border);
+border-radius: 6px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.82rem;
+color: var(–text);
+background: var(–bg);
+resize: vertical;
+transition: border-color 0.15s;
+}
+
+input:focus, textarea:focus {
+outline: none;
+border-color: var(–accent);
+}
+
+input[type=“password”] {
+font-family: monospace;
+letter-spacing: 0.1em;
+}
+
+textarea { min-height: 180px; line-height: 1.6; }
+
+.hint {
+font-size: 0.65rem;
+color: var(–text-light);
+margin-top: 0.35rem;
+line-height: 1.5;
+}
+
+.btn {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+padding: 0.75rem 1.5rem;
+border-radius: 6px;
+border: none;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.82rem;
+font-weight: 600;
+cursor: pointer;
+transition: opacity 0.15s, transform 0.1s;
+}
+
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-primary {
+background: var(–accent);
+color: white;
+width: 100%;
+justify-content: center;
+margin-top: 1.25rem;
+}
+
+.btn-primary:hover:not(:disabled) { opacity: 0.9; }
+
+.status {
+margin-top: 1rem;
+padding: 0.75rem 1rem;
+border-radius: 6px;
+font-size: 0.78rem;
+line-height: 1.5;
+display: none;
+}
+
+.status.info { background: var(–amber-bg); border: 1px solid var(–amber); color: #6b4c1a; display: block; }
+.status.success { background: var(–green-bg); border: 1px solid var(–green); color: #14532d; display: block; }
+.status.error { background: var(–accent-bg); border: 1px solid var(–accent); color: #7a1a1a; display: block; }
+
+.spinner {
+display: inline-block;
+width: 14px; height: 14px;
+border: 2px solid rgba(255,255,255,0.4);
+border-top-color: white;
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.example {
+background: var(–bg);
+border: 1px solid var(–border);
+border-radius: 6px;
+padding: 0.75rem 1rem;
+font-size: 0.72rem;
+color: var(–text-mid);
+line-height: 1.7;
+margin-top: 0.5rem;
+}
+
+.example strong { color: var(–text); }
+
+.link {
+display: block;
+margin-top: 1rem;
+font-size: 0.72rem;
+color: var(–accent);
+text-decoration: none;
+}
+
+.link:hover { text-decoration: underline; }
+
+.anchor {
+text-align: center;
+font-size: 0.68rem;
+color: var(–text-light);
+font-style: italic;
+margin-top: 2rem;
+padding-top: 1.5rem;
+border-top: 1px solid var(–border);
+}
+</style>
+
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Schedule Updater</h1>
+    <p>Weekly Plan · Auto-publish to GitHub</p>
+  </header>
+
+  <!-- Step 1: Credentials -->
+
+  <div class="section">
+    <div class="section-title">Step 1 — GitHub Credentials</div>
+
+```
+<label>GitHub Token</label>
+<input type="password" id="token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" oninput="saveTokenIfRemembered()" />
+<div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem">
+  <input type="checkbox" id="rememberToken" style="width:auto;margin:0" onchange="toggleRemember()" />
+  <span style="font-size:0.72rem;color:var(--text-mid)">Remember token on this device</span>
+</div>
+<p class="hint">Token is saved only in this browser — never sent anywhere except directly to GitHub.</p>
+
+<label>GitHub Username</label>
+<input type="text" id="username" value="mintymuffins-hash" />
+
+<label>Repository Name</label>
+<input type="text" id="repo" value="Weekly-plan" />
+
+<label>File Path</label>
+<input type="text" id="filepath" value="index.html" />
+```
+
+  </div>
+
+  <!-- Step 2: Schedule -->
+
+  <div class="section">
+    <div class="section-title">Step 2 — Describe Your Week</div>
+
+```
+<label>Week Starting</label>
+<input type="text" id="weekStart" placeholder="e.g. March 30, 2026" />
+
+<label>Your Schedule</label>
+<textarea id="scheduleInput" placeholder="Describe your week here — copy from your coaching session..."></textarea>
+
+<p class="hint">Example format:</p>
+<div class="example">
+  <strong>Monday:</strong> 9-10am Phyllis strategy (priority), 10-11am Cara review (deep work), 11am-12:30pm Council on Competitiveness (meeting), 1-2pm Advocacy (meeting), 2:30-4:30pm Riding (restore)<br>
+  <strong>Tuesday:</strong> 7-8am Cardio (restore), 8-9am Anna (meeting), 10-11am Advocacy call (meeting)...<br><br>
+  Types: <strong>meeting</strong>, <strong>deep</strong>, <strong>priority</strong>, <strong>restore</strong>
+</div>
+
+<label>Hard Deadlines (optional)</label>
+<textarea id="deadlines" placeholder="April 6 1PM — Phyllis Portfolio Alignment&#10;April 14 — FAO / Bio Solutions Call&#10;May 14 — Power BI Leadership Presentation" style="min-height:80px"></textarea>
+
+<button class="btn btn-primary" id="updateBtn" onclick="updateSchedule()">
+  <span id="btnText">Generate & Publish to GitHub</span>
+</button>
+
+<div class="status" id="status"></div>
+
+<a class="link" id="siteLink" href="https://mintymuffins-hash.github.io/Weekly-plan/" target="_blank">
+  → View live site: mintymuffins-hash.github.io/Weekly-plan/
+</a>
+```
+
+  </div>
+
+  <div class="anchor">"Doing the hard thing in this moment is how I become who I'm here to become."</div>
+
+</div>
+
+<script>
+// ── PARSE SCHEDULE TEXT ──
+function parseSchedule(text) {
+  const days = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+  const schedule = {};
+  const typeMap = {
+    meeting: "meeting", meet: "meeting",
+    deep: "deep", work: "deep",
+    priority: "priority", prio: "priority",
+    restore: "restore", rest: "restore", ride: "restore", riding: "restore", cardio: "restore", fitness: "restore"
+  };
+
+  let currentDay = null;
+
+  text.split('\n').forEach(line => {
+    line = line.trim();
+    if (!line) return;
+
+    // Check if line starts with a day name
+    for (const day of days) {
+      if (line.toLowerCase().startsWith(day.toLowerCase())) {
+        currentDay = day;
+        schedule[day] = schedule[day] || [];
+        // Rest of line after colon
+        line = line.replace(/^[^:]+:/, '').trim();
+        break;
+      }
+    }
+
+    if (!currentDay || !line) return;
+
+    // Parse comma-separated blocks
+    const parts = line.split(',');
+    parts.forEach(part => {
+      part = part.trim();
+      if (!part) return;
+
+      // Match time range: 9-10am, 9:30-10:30am, 2:30-4:30pm etc
+      const timeMatch = part.match(/(\d+)(?::(\d+))?\s*(?:am|pm)?\s*[-–]\s*(\d+)(?::(\d+))?\s*(am|pm)/i);
+      if (!timeMatch) return;
+
+      let startH = parseInt(timeMatch[1]);
+      const startM = parseInt(timeMatch[2] || 0);
+      let endH = parseInt(timeMatch[3]);
+      const endM = parseInt(timeMatch[4] || 0);
+      const ampm = timeMatch[5].toLowerCase();
+
+      // Normalize to 24h
+      if (ampm === 'pm') {
+        if (endH !== 12) endH += 12;
+        if (startH < endH && startH !== 12) startH += 12;
+        if (startH > endH) endH += 12;
+      }
+      // Handle noon edge case
+      if (startH === 12 && ampm === 'pm') startH = 12;
+
+      const start = startH + startM/60;
+      const end = endH + endM/60;
+
+      // Extract label and type
+      const afterTime = part.replace(/.*?(am|pm)\s*/i, '').trim();
+      const typeMatch = afterTime.match(/\(([^)]+)\)/);
+      let type = "meeting";
+      let label = afterTime.replace(/\([^)]+\)/g, '').trim();
+
+      if (typeMatch) {
+        const t = typeMatch[1].toLowerCase();
+        for (const [key, val] of Object.entries(typeMap)) {
+          if (t.includes(key)) { type = val; break; }
+        }
+      } else {
+        // Guess type from label
+        const l = label.toLowerCase();
+        if (l.includes('rid') || l.includes('cardio') || l.includes('run') || l.includes('walk') || l.includes('saddle') || l.includes('fitness')) type = 'restore';
+        else if (l.includes('phyllis') || l.includes('q1') || l.includes('milestone') || l.includes('prep') || l.includes('report')) type = 'priority';
+        else if (l.includes('review') || l.includes('write') || l.includes('draft') || l.includes('build') || l.includes('trade assoc') || l.includes('cara')) type = 'deep';
+      }
+
+      if (label && start < end) {
+        schedule[currentDay] = schedule[currentDay] || [];
+        schedule[currentDay].push({ start, end, label, type });
+      }
+    });
+  });
+
+  return schedule;
+}
+
+function parseDeadlines(text) {
+  if (!text.trim()) return [
+    { date: "April 6, 1PM", label: "Phyllis Portfolio Alignment", color: "#e11d48" },
+    { date: "April 14", label: "FAO / Bio Solutions Call", color: "#d97706" },
+    { date: "May 14", label: "Power BI — Leadership Presentation", color: "#e11d48" },
+  ];
+
+  return text.trim().split('\n').filter(l => l.trim()).map(line => {
+    const parts = line.split('—').map(s => s.trim());
+    return {
+      date: parts[0] || line,
+      label: parts[1] || '',
+      color: '#e11d48'
+    };
+  });
+}
+
+// ── GENERATE HTML ──
+function generateHTML(weekStart, schedule, deadlines) {
+  const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+  const START_H = 7, END_H = 18, TOTAL_H = END_H - START_H;
+  const PX_PER_HOUR = 64;
+  const GRID_H = TOTAL_H * PX_PER_HOUR;
+
+  const scheduleJSON = JSON.stringify(schedule, null, 2);
+  const deadlinesJSON = JSON.stringify(deadlines, null, 2);
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf8; --surface: #ffffff; --border: #e8e6e0;
+    --text: #1a1814; --text-mid: #4a4640; --text-light: #9a9590;
+    --meeting-bg: #f0f4f8; --meeting-border: #8fa8c0; --meeting-text: #2c3e50;
+    --deep-bg: #fdf8ed; --deep-border: #d4a843; --deep-text: #6b4c1a;
+    --priority-bg: #fdf0f0; --priority-border: #d45050; --priority-text: #7a1a1a;
+    --restore-bg: #f0faf4; --restore-border: #4caf7a; --restore-text: #1a5c35;
+    --now-line: #d45050; --now-glow: rgba(212,80,80,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100; }
+  .topbar-left h1 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--text); letter-spacing: -0.01em; }
+  .topbar-left p { font-size: 0.7rem; color: var(--text-light); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .clock-wrap { display: flex; align-items: center; gap: 1.25rem; }
+  .digital-clock { text-align: right; }
+  .digital-time { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; }
+  .digital-date { font-size: 0.65rem; color: var(--text-light); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px; }
+  .digital-tz { font-size: 0.6rem; color: var(--text-light); }
+  .anchor-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0.5rem 1.5rem; font-size: 0.7rem; color: var(--text-light); font-style: italic; text-align: center; }
+  .legend { display: flex; gap: 1.25rem; padding: 0.75rem 1.5rem; flex-wrap: wrap; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.68rem; color: var(--text-mid); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .now-banner { margin: 0.75rem 1.5rem; padding: 0.6rem 1rem; background: var(--priority-bg); border: 1px solid var(--priority-border); border-radius: 6px; font-size: 0.75rem; color: var(--priority-text); display: flex; align-items: center; gap: 0.5rem; }
+  .now-dot { width: 8px; height: 8px; background: var(--now-line); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+  .grid-container { overflow-x: auto; padding: 0 1rem 2rem; }
+  .grid { display: flex; min-width: 600px; margin-top: 0.5rem; }
+  .time-col { width: 44px; flex-shrink: 0; padding-top: 28px; }
+  .time-label { height: 64px; display: flex; align-items: flex-start; font-size: 0.6rem; color: var(--text-light); padding-top: 2px; }
+  .days-wrap { flex: 1; display: flex; gap: 4px; }
+  .day-col { flex: 1; min-width: 100px; }
+  .day-header { height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mid); }
+  .day-body { position: relative; background: #f5f4f0; border-radius: 6px; border: 1px solid var(--border); }
+  .hour-line { position: absolute; left: 0; right: 0; border-top: 1px solid var(--border); pointer-events: none; }
+  .block { position: absolute; left: 3px; right: 3px; border-radius: 0 4px 4px 0; padding: 5px 7px; overflow: hidden; cursor: default; transition: box-shadow 0.2s, transform 0.2s; border-left: 3px solid; }
+  .block:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.12); transform: translateX(1px); z-index: 5; }
+  .block.active { box-shadow: 0 0 0 2px var(--now-line), 0 4px 16px var(--now-glow); z-index: 4; }
+  .block.meeting { background: var(--meeting-bg); border-color: var(--meeting-border); color: var(--meeting-text); }
+  .block.deep { background: var(--deep-bg); border-color: var(--deep-border); color: var(--deep-text); }
+  .block.priority { background: var(--priority-bg); border-color: var(--priority-border); color: var(--priority-text); }
+  .block.restore { background: var(--restore-bg); border-color: var(--restore-border); color: var(--restore-text); }
+  .block-label { font-size: 0.65rem; font-weight: 600; line-height: 1.3; margin-bottom: 2px; }
+  .block-time { font-size: 0.55rem; opacity: 0.7; }
+  .now-line { position: absolute; left: -4px; right: -4px; height: 2px; background: var(--now-line); z-index: 10; pointer-events: none; box-shadow: 0 0 6px var(--now-glow); }
+  .now-line::before { content: ''; position: absolute; left: -1px; top: -4px; width: 10px; height: 10px; background: var(--now-line); border-radius: 50%; border: 2px solid white; }
+  .deadlines { margin: 1rem 1.5rem; padding: 1rem 1.25rem; background: var(--priority-bg); border: 1px solid #f0c0c0; border-radius: 8px; }
+  .deadlines h3 { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.75rem; font-weight: 500; }
+  .deadline-list { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .deadline-date { font-family: 'DM Serif Display', serif; font-size: 0.9rem; margin-bottom: 1px; }
+  .deadline-label { font-size: 0.7rem; color: var(--text-mid); }
+  @media(max-width:640px) { .topbar{padding:0.75rem 1rem} .anchor-bar{display:none} .legend{padding:0.5rem 1rem;gap:0.75rem} .now-banner{margin:0.5rem 1rem} .grid-container{padding:0 0.5rem 2rem} .deadlines{margin:1rem} .digital-time{font-size:1.3rem} }
+</style>
+
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <h1>Weekly Plan</h1>
+    <p>Week of ${weekStart}</p>
+  </div>
+  <div class="clock-wrap">
+    <canvas id="analogClock" width="60" height="60" style="border-radius:50%;border:2px solid var(--border);background:white;box-shadow:0 2px 8px rgba(0,0,0,0.06)"></canvas>
+    <div class="digital-clock">
+      <div class="digital-time" id="digitalTime">--:--</div>
+      <div class="digital-date" id="digitalDate">---</div>
+      <div class="digital-tz">Eastern Time</div>
+    </div>
+  </div>
+</div>
+<div class="anchor-bar">"Doing the hard thing in this moment is how I become who I'm here to become."</div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#8fa8c0"></div>Meeting</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d4a843"></div>Deep Work</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d45050"></div>Priority Work</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4caf7a"></div>Restoration</div>
+  <div class="legend-item" style="margin-left:auto"><div class="now-dot"></div><span>You are here</span></div>
+</div>
+<div class="now-banner" id="nowBanner"><div class="now-dot"></div><span id="nowText">Loading...</span></div>
+<div class="grid-container"><div class="grid"><div class="time-col" id="timeCol"></div><div class="days-wrap" id="daysWrap"></div></div></div>
+<div class="deadlines">
+  <h3>Hard Deadlines</h3>
+  <div class="deadline-list" id="deadlineList"></div>
+</div>
+<script>
+const SCHEDULE = ${scheduleJSON};
+const DEADLINES = ${deadlinesJSON};
+const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+const START_H = 7, END_H = 18, TOTAL_H = END_H - START_H;
+const PX_PER_HOUR = 64, GRID_H = TOTAL_H * PX_PER_HOUR;
+
+function fmt(h){const hr=Math.floor(h),mn=Math.round((h%1)*60),ap=hr<12?“AM”:“PM”,dh=hr>12?hr-12:(hr===0?12:hr);return `${dh}${mn>0?”:”+String(mn).padStart(2,“0”):””} ${ap}`}
+
+const timeCol=document.getElementById(‘timeCol’);
+const daysWrap=document.getElementById(‘daysWrap’);
+const dlList=document.getElementById(‘deadlineList’);
+
+for(let h=START_H;h<=END_H;h++){const el=document.createElement(‘div’);el.className=‘time-label’;el.style.height=PX_PER_HOUR+‘px’;el.textContent=h>12?`${h-12}PM`:h===12?‘12PM’:`${h}AM`;timeCol.appendChild(el);}
+
+DAYS.forEach(day=>{
+const col=document.createElement(‘div’);col.className=‘day-col’;
+const hdr=document.createElement(‘div’);hdr.className=‘day-header’;hdr.textContent=day;col.appendChild(hdr);
+const body=document.createElement(‘div’);body.className=‘day-body’;body.id=‘body-’+day;body.style.height=GRID_H+‘px’;
+for(let i=0;i<=TOTAL_H;i++){const l=document.createElement(‘div’);l.className=‘hour-line’;l.style.top=(i*PX_PER_HOUR)+‘px’;body.appendChild(l);}
+(SCHEDULE[day]||[]).forEach(b=>{
+const el=document.createElement(‘div’);el.className=‘block ‘+b.type;el.id=‘block-’+day+’-’+b.start;
+el.style.top=((b.start-START_H)/TOTAL_H*100)+’%’;el.style.height=((b.end-b.start)/TOTAL_H*100)+’%’;
+el.innerHTML=’<div class="block-label">’+b.label+’</div><div class="block-time">’+fmt(b.start)+’ – ‘+fmt(b.end)+’</div>’;
+body.appendChild(el);
+});
+const nl=document.createElement(‘div’);nl.className=‘now-line’;nl.id=‘nowline-’+day;nl.style.display=‘none’;body.appendChild(nl);
+col.appendChild(body);daysWrap.appendChild(col);
+});
+
+DEADLINES.forEach(d=>{
+dlList.innerHTML+=`<div><div class="deadline-date" style="color:\${d.color}">${d.date}</div><div class="deadline-label">${d.label}</div></div>`;
+});
+
+function getET(){return new Date(new Date().toLocaleString(“en-US”,{timeZone:“America/New_York”}))}
+function getDayName(d){return[“Sunday”,“Monday”,“Tuesday”,“Wednesday”,“Thursday”,“Friday”,“Saturday”][d.getDay()]}
+
+function updateClock(){
+const now=getET(),h=now.getHours(),m=now.getMinutes(),s=now.getSeconds(),dayName=getDayName(now);
+const h12=h>12?h-12:(h===0?12:h),ap=h<12?‘AM’:‘PM’;
+document.getElementById(‘digitalTime’).textContent=`${h12}:${String(m).padStart(2,‘0’)} ${ap}`;
+const ds=[‘Sun’,‘Mon’,‘Tue’,‘Wed’,‘Thu’,‘Fri’,‘Sat’],ms=[‘Jan’,‘Feb’,‘Mar’,‘Apr’,‘May’,‘Jun’,‘Jul’,‘Aug’,‘Sep’,‘Oct’,‘Nov’,‘Dec’];
+document.getElementById(‘digitalDate’).textContent=`${ds[now.getDay()]} ${ms[now.getMonth()]} ${now.getDate()}`;
+
+const canvas=document.getElementById(‘analogClock’),ctx=canvas.getContext(‘2d’),W=canvas.width,H=canvas.height,cx=W/2,cy=H/2,r=W/2-3;
+ctx.clearRect(0,0,W,H);
+ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=’#fff’;ctx.fill();ctx.strokeStyle=’#e8e6e0’;ctx.lineWidth=1.5;ctx.stroke();
+for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2-Math.PI/2;ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*(r-2),cy+Math.sin(a)*(r-2));ctx.lineTo(cx+Math.cos(a)*(r-6),cy+Math.sin(a)*(r-6));ctx.strokeStyle=’#d0cec8’;ctx.lineWidth=1;ctx.stroke();}
+const ha=((h%12+m/60)/12)*Math.PI*2-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(ha)*(r*0.55),cy+Math.sin(ha)*(r*0.55));ctx.strokeStyle=’#1a1814’;ctx.lineWidth=2.5;ctx.lineCap=‘round’;ctx.stroke();
+const ma=((m+s/60)/60)*Math.PI*2-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(ma)*(r*0.75),cy+Math.sin(ma)*(r*0.75));ctx.strokeStyle=’#4a4640’;ctx.lineWidth=1.8;ctx.lineCap=‘round’;ctx.stroke();
+const sa=(s/60)*Math.PI*2-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(sa)*(r*0.82),cy+Math.sin(sa)*(r*0.82));ctx.strokeStyle=’#d45050’;ctx.lineWidth=1;ctx.lineCap=‘round’;ctx.stroke();
+ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fillStyle=’#1a1814’;ctx.fill();
+
+const currentHour=h+m/60+s/3600,isWeekday=DAYS.includes(dayName);
+document.querySelectorAll(’.block.active’).forEach(b=>b.classList.remove(‘active’));
+DAYS.forEach(d=>{const nl=document.getElementById(‘nowline-’+d);if(nl)nl.style.display=‘none’;});
+
+if(isWeekday&&currentHour>=START_H&&currentHour<=END_H){
+const nl=document.getElementById(‘nowline-’+dayName);
+if(nl){nl.style.top=((currentHour-START_H)/TOTAL_H*100)+’%’;nl.style.display=‘block’;}
+let activeBlock=null;
+(SCHEDULE[dayName]||[]).forEach(b=>{if(currentHour>=b.start&&currentHour<b.end){const el=document.getElementById(‘block-’+dayName+’-’+b.start);if(el){el.classList.add(‘active’);activeBlock=b;}}});
+const banner=document.getElementById(‘nowBanner’),nowText=document.getElementById(‘nowText’);
+if(activeBlock){const rem=Math.round((activeBlock.end-currentHour)*60);nowText.textContent=‘Now: ‘+activeBlock.label+’ · ‘+rem+’ min remaining’;banner.style.borderColor=‘var(–priority-border)’;}
+else{let next=null;(SCHEDULE[dayName]||[]).forEach(b=>{if(b.start>currentHour&&(!next||b.start<next.start))next=b;});if(next){nowText.textContent=‘Next: ‘+next.label+’ in ‘+Math.round((next.start-currentHour)*60)+’ min’;banner.style.borderColor=‘var(–deep-border)’;}else{nowText.textContent=‘No more blocks today’;banner.style.borderColor=‘var(–border)’;}}
+}else{
+const nowText=document.getElementById(‘nowText’);
+if(!isWeekday)nowText.textContent=“It’s the weekend — rest, recover, prepare.”;
+else nowText.textContent=currentHour<START_H?‘Day starts at 7AM · Meditate before desk.’:‘Day complete. Done log before you close.’;
+}
+}
+updateClock();setInterval(updateClock,1000);
+</script>
+
+</body>
+</html>`;
+}
+
+// ── PUSH TO GITHUB ──
+async function updateSchedule() {
+const token = document.getElementById(‘token’).value.trim();
+const username = document.getElementById(‘username’).value.trim();
+const repo = document.getElementById(‘repo’).value.trim();
+const filepath = document.getElementById(‘filepath’).value.trim();
+const weekStart = document.getElementById(‘weekStart’).value.trim();
+const scheduleText = document.getElementById(‘scheduleInput’).value.trim();
+const deadlinesText = document.getElementById(‘deadlines’).value.trim();
+
+const status = document.getElementById(‘status’);
+const btn = document.getElementById(‘updateBtn’);
+const btnText = document.getElementById(‘btnText’);
+
+if (!token) { showStatus(‘error’, ‘Please enter your GitHub token.’); return; }
+if (!weekStart) { showStatus(‘error’, ‘Please enter the week start date.’); return; }
+if (!scheduleText) { showStatus(‘error’, ‘Please describe your schedule.’); return; }
+
+btn.disabled = true;
+btnText.innerHTML = ‘<span class="spinner"></span> Generating schedule…’;
+showStatus(‘info’, ‘Parsing your schedule…’);
+
+try {
+const schedule = parseSchedule(scheduleText);
+const deadlines = parseDeadlines(deadlinesText);
+
+```
+const blockCount = Object.values(schedule).reduce((n, d) => n + d.length, 0);
+if (blockCount === 0) {
+  showStatus('error', 'Could not parse any schedule blocks. Check the format — make sure times include AM/PM (e.g. 9-10am, 2:30-4:30pm).');
+  btn.disabled = false;
+  btnText.textContent = 'Generate & Publish to GitHub';
+  return;
+}
+
+showStatus('info', `Parsed ${blockCount} blocks. Generating HTML and pushing to GitHub...`);
+btnText.innerHTML = '<span class="spinner"></span> Publishing to GitHub...';
+
+const html = generateHTML(weekStart, schedule, deadlines);
+
+// Get current file SHA
+const shaRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filepath}`, {
+  headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+});
+
+let sha = null;
+if (shaRes.ok) {
+  const shaData = await shaRes.json();
+  sha = shaData.sha;
+}
+
+// Push new file
+const body = {
+  message: `Update schedule: week of ${weekStart}`,
+  content: btoa(unescape(encodeURIComponent(html))),
+};
+if (sha) body.sha = sha;
+
+const pushRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filepath}`, {
+  method: 'PUT',
+  headers: {
+    'Authorization': `token ${token}`,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(body)
+});
+
+if (pushRes.ok) {
+  showStatus('success', `✅ Published! ${blockCount} blocks across ${Object.keys(schedule).length} days. Your site will update in about 60 seconds.\n\n→ https://${username}.github.io/${repo}/`);
+} else {
+  const err = await pushRes.json();
+  showStatus('error', `GitHub error: ${err.message || pushRes.status}`);
+}
+```
+
+} catch (e) {
+showStatus(‘error’, `Error: ${e.message}`);
+}
+
+btn.disabled = false;
+btnText.textContent = ‘Generate & Publish to GitHub’;
+}
+
+function showStatus(type, msg) {
+const el = document.getElementById(‘status’);
+el.className = ’status ’ + type;
+el.textContent = msg;
+}
+
+function toggleRemember() {
+const checked = document.getElementById(‘rememberToken’).checked;
+const token = document.getElementById(‘token’).value.trim();
+if (checked && token) {
+localStorage.setItem(‘gh_token’, token);
+localStorage.setItem(‘gh_remember’, ‘1’);
+} else if (!checked) {
+localStorage.removeItem(‘gh_token’);
+localStorage.removeItem(‘gh_remember’);
+}
+}
+
+function saveTokenIfRemembered() {
+if (localStorage.getItem(‘gh_remember’) === ‘1’) {
+const token = document.getElementById(‘token’).value.trim();
+if (token) localStorage.setItem(‘gh_token’, token);
+}
+}
+
+// Load saved token on page open
+window.addEventListener(‘DOMContentLoaded’, () => {
+const saved = localStorage.getItem(‘gh_token’);
+const remember = localStorage.getItem(‘gh_remember’);
+if (saved && remember === ‘1’) {
+document.getElementById(‘token’).value = saved;
+document.getElementById(‘rememberToken’).checked = true;
+}
+});
+</script>
+
+</body>
+</html>
